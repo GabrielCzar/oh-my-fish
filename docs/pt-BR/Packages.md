@@ -3,7 +3,11 @@
 
 # Pacotes
 
+<<<<<<< HEAD
 > Documentação do Oh My Fish &nbsp;&bull;&nbsp;Também em
+=======
+> Documentação do Oh My Fish &nbsp;&bull;&nbsp;Also in
+>>>>>>> original/master
 > <a href="../en-US/Packages.md">🇺🇸</a>
 > <a href="../ru-RU/Packages.md">🇷🇺</a>
 > <a href="../zh-CN/Packages.md">🇨🇳</a>

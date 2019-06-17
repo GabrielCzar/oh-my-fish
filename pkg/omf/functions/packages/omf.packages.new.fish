@@ -23,7 +23,8 @@ function __omf.packages.new.from_template -a path github user name
           echo (basename "$file")
         end
       end)
-      sed "s/{{USER_NAME}}/$user/;s/{{GITHUB_USER}}/$github/;s/{{NAME}}/$name/" \
+      set -l year (date +%Y)
+      sed "s/{{USER_NAME}}/$user/;s/{{GITHUB_USER}}/$github/;s/{{NAME}}/$name/;s/{{YEAR}}/$year/" \
         $file > $target
       echo (omf::em)" create "(omf::off)" "(begin
         if test (basename $PWD) = $name
@@ -34,13 +35,13 @@ function __omf.packages.new.from_template -a path github user name
       end)$target
     end
   end
-  popd >/dev/null ^&1
+  popd >/dev/null 2>&1
 end
 
 
 function omf.packages.new -a option name
   switch $option
-    case "p" "pkg" "pack" "packg" "package"
+    case "p" "plugin"
       set option "pkg"
     case "t" "th" "the" "thm" "theme" "themes"
       set option "themes"
@@ -67,10 +68,6 @@ function omf.packages.new -a option name
       $github $user $name
 
     echo (omf::em)"Switched to $dir"(omf::off)
-
-    if test "$option" = themes
-      omf.theme.set $name
-    end
   else
     echo (omf::err)"\$OMF_CONFIG and/or \$OMF_PATH undefined."(omf::off) >&2
     exit $OMF_UNKNOWN_ERR

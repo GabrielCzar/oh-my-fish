@@ -1,7 +1,5 @@
 function omf.theme.set -a target_theme
-  if not contains "$target_theme" (omf.packages.list --theme)
-    echo (omf::err)"Theme not installed!"(omf::off)
-    echo Install it using (omf::em)omf install $target_theme(omf::off)
+  if not test -d $OMF_PATH/themes/$target_theme
     return $OMF_INVALID_ARG
   end
 
@@ -36,7 +34,7 @@ function omf.theme.set -a target_theme
 
   # Reload fish key bindings if reload is available and needed
   functions -q __fish_reload_key_bindings
-    and test (count {$OMF_CONFIG,$OMF_PATH}/key_binding?.fish) -gt 0
+    and test -e $OMF_CONFIG/key_bindings.fish -o -e $OMF_PATH/key_bindings.fish
     and __fish_reload_key_bindings
 
   # Persist the changes
